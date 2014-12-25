@@ -21,20 +21,20 @@ Although the following part of this document is written in Japanese, Godoc and c
 需要があればバイナリも用意するかもしれません。
 
 * 取得
-	```
-	go get github.com/daikikohara/enotify-slack
-	cd /path/to/enotify-slack
-	godep get
-	go build
-	```
+```
+go get github.com/daikikohara/enotify-slack
+cd /path/to/enotify-slack
+godep get
+go build
+```
 * 設定<br>
 conf.ymlを必要に応じて編集して下さい。<br>
 設定方法はconf.ymlのコメントを参照して下さい。
 * 起動<br>
 nohupを付けるかscreen/tmuxのセッションの中で起動して下さい。
-	```
-	nohup ./enotify-slack &
-	```
+```
+nohup ./enotify-slack &
+```
 
 ## Thanks
 
