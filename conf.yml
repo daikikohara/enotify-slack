@@ -1,0 +1,64 @@
+# タイトルとイベント説明文の中にこれらの単語が含まれているものを通知します。
+keyword: golang,slack,anotherkeyword
+# イベントオーナーまたはイベント参加者に以下の参加者が含まれているものを通知します。
+# イベントにkeywordが含まれていなくてもnicknameが含まれていれば通知します。
+# atnd,connpass,zusaarのみ対応しています。
+nickname: nickname1,nickname2
+# 場所にこれらの単語が含まれているもののみ通知します。
+place: 
+  - 東京
+  - 神奈川
+  - 埼玉
+  - 千葉
+  - 未定
+  - 調整中
+# イベント取得でエラーが発生した場合にslackに通知します。
+# ネットワークが不安定になると頻発することがあるのでデフォルトはログファイルのみです。
+error_to_slack: false
+# イベント提供サイトごとの設定を記載します。
+# urlはAPIのURLです。
+# colorはSlackで表示される際の色です。
+# intervalはAPIを実行する間隔(秒)です。負荷をかけ過ぎないよう注意して下さい。
+# また、通知時のアイコンはイベント提供者名(例えば:atnd:)としています。
+# 事前にアイコンに対応した絵文字を登録しておかないとそのまま文字として表示されます。
+provider:
+  atnd:
+    url:   https://api.atnd.org/events/?count=50&format=json&
+    color: "#000000"
+    interval: 600
+  connpass:
+    url:   http://connpass.com/api/v1/event/?order=3&count=50&
+    color: "#D00000"
+    interval: 600
+  doorkeeper:
+    url:   http://api.doorkeeper.jp/events/?sort=published_at&locale=ja&
+    color: "#00D0A0"
+    interval: 600
+  partake:
+    url:  http://partake.in/api/event/search?sortOrder=createdAt&maxNum=50&query=
+    color: "#AAAAAA"
+    interval: 600
+  zusaar:
+    url:   http://www.zusaar.com/api/event/?count=50&
+    color: "#0000FF"
+    interval: 600
+# Slack通知の設定です。
+# pretextはイベント情報の前に付与する文字です。
+# urlはSlackのincoming-webhookのURLです。環境に合わせて記載して下さい。
+# channelは通知するチャネル名です。
+# shortは表示方法です。falseにすると整形されて表示されtrueにすると詰めて表示されます。
+# 詳細はincoming-webhookのページを参照してください。
+# intervalはSlackに通知する間隔(秒)です。初回起動時やイベントが大量に登録されたときに
+# Slackのrate limit(1message/sec)に達してしまうのでインターバルを入れてます。
+slack:
+  pretext: "ヒャッハー！"
+  url:     https://hooks.slack.com/services/YOUR/TOKEN/HERE
+  channel: "#event-notify"
+  short:  false
+  interval: 3
+# 過去に通知したイベントの情報を保持するboltdbというKVSの情報です。基本的には変更不要です。
+boltdb:
+  dbfile: enotify-slack.db
+  bucketname: enotify-slack 
+# ログファイル名です。
+logfile: enotify-slack.log
