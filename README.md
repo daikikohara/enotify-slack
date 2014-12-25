@@ -17,12 +17,14 @@ Although the following part of this document is written in Japanese, Godoc and c
 ## 使い方
 
 現在ソースしか用意していません。
+依存性の解決には[godep](https://github.com/tools/godep)を使ってます。
 需要があればバイナリも用意するかもしれません。
 
 * 取得
-```bash:
-go get https://github.com/daikikohara/enotify-slack.git
-cd enotify-slack
+```
+go get github.com/daikikohara/enotify-slack
+cd /path/to/enotify-slack
+godep get
 go build
 ```
 * 設定
