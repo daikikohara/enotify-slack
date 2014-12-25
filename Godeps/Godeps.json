@@ -1,0 +1,23 @@
+{
+	"ImportPath": "github.com/daikikohara/enotify-slack",
+	"GoVersion": "go1.3",
+	"Deps": [
+		{
+			"ImportPath": "github.com/boltdb/bolt",
+			"Comment": "data/v1-238-g43a1303",
+			"Rev": "43a1303c1568c531237c7a55bb1d40413e792b53"
+		},
+		{
+			"ImportPath": "github.com/mitchellh/mapstructure",
+			"Rev": "740c764bc6149d3f1806231418adb9f52c11bcbf"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/assert",
+			"Rev": "8ce79b9f0b77745113f82c17d0756771456ccbd3"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v1",
+			"Rev": "9f9df34309c04878acc86042b16630b0f696e1de"
+		}
+	]
+}
