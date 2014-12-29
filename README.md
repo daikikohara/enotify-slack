@@ -1,6 +1,8 @@
 enotify-slack
 =============
 
+[![Build Status](https://drone.io/github.com/daikikohara/enotify-slack/status.png)](https://drone.io/github.com/daikikohara/enotify-slack/latest)
+
 This is a tool to get event information and send the information to a channel in [Slack](https://slack.com/).
 The event information is provided by event support sites such as [Connpass](http://connpass.com/).
 Currently this tool only gets event information provided by Japanese event support sites.
@@ -16,15 +18,14 @@ Although the following part of this document is written in Japanese, Godoc and c
 
 ## 使い方
 
-現在ソースしか用意していません。<br>
-依存性の解決には[godep](https://github.com/tools/godep)を使ってます。<br>
-需要があればバイナリも用意するかもしれません。
+[バイナリ版](https://drone.io/github.com/daikikohara/enotify-slack/files)はLinuxのみ動作確認しています。<br>
+バイナリ版を使う場合は以下の「取得」の項は不要です。設定ファイル(conf.yml)はバイナリと同じディレクトリに配置してください。
 
 * 取得
 ```
 go get github.com/daikikohara/enotify-slack
 cd /path/to/enotify-slack
-godep get
+godep restore
 go build
 ```
 * 設定<br>
