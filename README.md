@@ -2,6 +2,7 @@ enotify-slack
 =============
 
 [![Build Status](https://drone.io/github.com/daikikohara/enotify-slack/status.png)](https://drone.io/github.com/daikikohara/enotify-slack/latest)
+[![Coverage Status](https://img.shields.io/coveralls/daikikohara/enotify-slack.svg)](https://coveralls.io/r/daikikohara/enotify-slack?branch=master)
 
 This is a tool to get event information and send the information to a channel in [Slack](https://slack.com/).
 The event information is provided by event support sites such as [Connpass](http://connpass.com/).
