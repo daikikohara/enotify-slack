@@ -25,6 +25,14 @@ var (
 		Started_at: "2015-09-30 19:00",
 		Place:      "address123\nplace123",
 	}
+	eventoklong = Event{
+		Id:         "123",
+		Title:      "example#1",
+		Summary:    "summary123toolongtoolongtoolongtoolongtoolongtoolo...",
+		Url:        "http://example.connpass.com/event/123/",
+		Started_at: "2015-09-30 19:00",
+		Place:      "address123\nplace123",
+	}
 	eventInvalidTime = Event{
 		Id:         "123",
 		Title:      "example#1",
@@ -44,6 +52,7 @@ var funcNameTable = []struct {
 	{"partake", "Partake"},
 	{"connpass", "Connpass"},
 	{"zusaar", "Zusaar"},
+	{"strtacademy", "Strtacademy"},
 }
 
 func TestGetApi(t *testing.T) {

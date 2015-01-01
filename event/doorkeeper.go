@@ -1,7 +1,6 @@
 package event
 
 import (
-	"strings"
 	"time"
 
 	"github.com/mitchellh/mapstructure"
@@ -43,24 +42,11 @@ func (self *Doorkeeper) Get(baseurl, keyword, nickname string) ([]Event, error) 
 			Summary:    e.Event.Description,
 			Place:      e.Event.Address + "\n" + e.Event.Venue_name,
 		}
-		if !self.contains(event.Title, event.Summary, keyword) {
+		if !contains(event.Title, event.Summary, keyword) {
 			continue
 		}
-		if len(event.Summary) > 100 {
-			event.Summary = event.Summary[:100] + "..."
-		}
+		event.Summary = trim(event.Summary)
 		events = append(events, event)
 	}
 	return events, nil
-}
-
-// contains checks if Doorkeeper event contains keywords specified in the conf file
-// Doorkeeper api does not take keywords as the parameter, so whether or not keywords are included has to be checked after getting the response.
-func (self *Doorkeeper) contains(title, description, keyword string) bool {
-	for _, q := range strings.Split(keyword, ",") {
-		if strings.Contains(strings.ToLower(title), strings.ToLower(q)) || strings.Contains(strings.ToLower(description), strings.ToLower(q)) {
-			return true
-		}
-	}
-	return false
 }

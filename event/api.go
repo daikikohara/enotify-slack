@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -30,6 +31,8 @@ func GetApi(provider string) Api {
 		return new(Connpass)
 	case "zusaar":
 		return new(Zusaar)
+	case "strtacademy":
+		return new(Strtacademy)
 	default:
 		log.Fatalln("Invalid api name:" + provider + "\ncheck conf file.")
 	}
@@ -63,4 +66,22 @@ func format(date string) string {
 		return date
 	}
 	return t.In(time.FixedZone("Asia/Tokyo", 9*60*60)).Format(timeFormat)
+}
+
+// contains checks if keyword is contained in either title or description.
+func contains(title, description, keyword string) bool {
+	for _, q := range strings.Split(keyword, ",") {
+		if strings.Contains(strings.ToLower(title), strings.ToLower(q)) || strings.Contains(strings.ToLower(description), strings.ToLower(q)) {
+			return true
+		}
+	}
+	return false
+}
+
+// trim returns first 50 characters of string passed by the argument.
+func trim(s string) string {
+	if len([]rune(s)) > 50 {
+		return string([]rune(s)[:50]) + "..."
+	}
+	return s
 }
