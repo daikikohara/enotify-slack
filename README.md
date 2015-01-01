@@ -48,6 +48,7 @@ nohup ./enotify-slack &
  * [Connpass](http://connpass.com/about/api/)
  * [Doorkeeper](http://www.doorkeeperhq.com/developer/api)
  * [Partake](https://github.com/partakein/partake/wiki/PARTAKE-Web-API)
+ * [StreetAcademy](http://www.street-academy.com/api)
  * [Zusaar](http://www.zusaar.com/doc/api.html)
 * Slack通知
  * [Slack](https://api.slack.com/)

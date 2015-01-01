@@ -38,6 +38,10 @@ provider:
     url:  http://partake.in/api/event/search?sortOrder=createdAt&maxNum=50&query=
     color: "#AAAAAA"
     interval: 600
+  strtacademy:
+    url: http://www.street-academy.com/api/v1/events?page=
+    color: "#009900"
+    interval: 600
   zusaar:
     url:   http://www.zusaar.com/api/event/?count=50&
     color: "#0000FF"
