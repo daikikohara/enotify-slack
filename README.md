@@ -14,6 +14,7 @@ Although the following part of this document is written in Japanese, Godoc and c
 
 イベント支援サイトから勉強会の情報を取得してSlackに通知するためのツールです。
 イベントのタイトルか説明にキーワードが含まれている場合、または指定したユーザが開催(または参加)しているイベントの情報をSlackの指定のチャネルに通知します。
+もう少し詳しい紹介は[こちら](http://qiita.com/kiida/items/373446edd2fb09da82ca)に書きました。
 
 ![キャプチャ](https://raw.github.com/wiki/daikikohara/enotify-slack/images/capture01.png)
 
