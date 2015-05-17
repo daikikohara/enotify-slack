@@ -29,7 +29,8 @@ type Config struct {
 		Dbfile     string
 		Bucketname string
 	}
-	Logfile string
+	Logfile  string
+	Timezone string
 }
 
 // NewConfig constructs Config using a yaml file passed as the argument.

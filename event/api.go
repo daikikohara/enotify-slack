@@ -15,7 +15,22 @@ type Api interface {
 	Get(baseurl, keyword, nickname string) ([]Event, error)
 }
 
+// timeFormat holds time format.
+// Currently it only supports "2006-01-02 15:04" style format.
 const timeFormat = "2006-01-02 15:04"
+
+// timezone holds timezone such as "Asia/Tokyo"
+// This can be set via configuration file.
+var timezone *time.Location
+
+// SetTimezone sets timezone specified in the configuration file.
+func SetTimezone(t string) {
+	l, err := time.LoadLocation(t)
+	if err != nil {
+		panic(err.Error())
+	}
+	timezone = l
+}
 
 // GetApi is a factory function.
 // GetApi returns an implementation of Api which gets actual events provided by each event provider.
@@ -33,8 +48,12 @@ func GetApi(provider string) Api {
 		return new(Zusaar)
 	case "strtacademy":
 		return new(Strtacademy)
+	case "meetup":
+		return new(Meetup)
+	case "eventbrite":
+		return new(Eventbrite)
 	default:
-		log.Fatalln("Invalid api name:" + provider + "\ncheck conf file.")
+		log.Panic("Invalid api name:" + provider + "\ncheck conf file.")
 	}
 	return nil
 }
@@ -65,7 +84,13 @@ func format(date string) string {
 	if err != nil {
 		return date
 	}
-	return t.In(time.FixedZone("Asia/Tokyo", 9*60*60)).Format(timeFormat)
+	return t.In(timezone).Format(timeFormat)
+}
+
+// formatEpoch formats time in milliseconds in epoch to the common format used for Slack message.
+func formatEpoch(i int64) string {
+	tm := time.Unix(i/1000, 0)
+	return tm.In(timezone).Format(timeFormat)
 }
 
 // contains checks if keyword is contained in either title or description.

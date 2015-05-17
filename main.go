@@ -37,6 +37,7 @@ var (
 
 func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
+	SetTimezone(config.Timezone)
 }
 
 func main() {

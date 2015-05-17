@@ -22,6 +22,7 @@ var (
 )
 
 func TestGetPartake(t *testing.T) {
+	SetTimezone("Asia/Tokyo")
 	// success
 	tsSuccess := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")

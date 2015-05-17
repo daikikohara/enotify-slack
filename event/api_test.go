@@ -26,9 +26,10 @@ var (
 		Place:      "address123\nplace123",
 	}
 	eventoklong = Event{
-		Id:         "123",
-		Title:      "example#1",
-		Summary:    "summary123toolongtoolongtoolongtoolongtoolongtoolo...",
+		Id:      "123",
+		Title:   "example#1",
+		Summary: "summary123toolongtoolongtoolongtoolongtoolongtoolo...",
+
 		Url:        "http://example.connpass.com/event/123/",
 		Started_at: "2015-09-30 19:00",
 		Place:      "address123\nplace123",
@@ -53,6 +54,8 @@ var funcNameTable = []struct {
 	{"connpass", "Connpass"},
 	{"zusaar", "Zusaar"},
 	{"strtacademy", "Strtacademy"},
+	{"meetup", "Meetup"},
+	{"eventbrite", "Eventbrite"},
 }
 
 func TestGetApi(t *testing.T) {
@@ -60,7 +63,12 @@ func TestGetApi(t *testing.T) {
 	for _, testcase := range funcNameTable {
 		assert.Contains(reflect.TypeOf(GetApi(testcase.providerName)).Elem().Name(), testcase.functionName, "GetApi test failed for "+testcase.providerName)
 	}
-	//assert.Empty(GetApi("other"))
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fail()
+		}
+	}()
+	GetApi("other")
 }
 
 func TestGetJson(t *testing.T) {
@@ -92,4 +100,14 @@ func TestGetJson(t *testing.T) {
 	if result.(map[string]interface{})["event"] != "123" {
 		t.Fail()
 	}
+}
+
+func TestSetTimezone(t *testing.T) {
+	SetTimezone("Asia/Tokyo")
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fail()
+		}
+	}()
+	SetTimezone("ERROR")
 }

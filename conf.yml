@@ -34,6 +34,14 @@ provider:
     url:   http://api.doorkeeper.jp/events/?sort=published_at&locale=ja&
     color: "#00D0A0"
     interval: 600
+  eventbrite:
+    url: https://www.eventbriteapi.com/v3/events/search/?token=your_api_token_here&
+    color: "#FFaa33"
+    interval: 600
+  meetup:
+    url: https://api.meetup.com/2/open_events?key=your_api_key_here&
+    color: "#F00000"
+    interval: 600
   partake:
     url:  http://partake.in/api/event/search?sortOrder=createdAt&maxNum=50&query=
     color: "#AAAAAA"
@@ -66,3 +74,6 @@ boltdb:
   bucketname: enotify-slack 
 # ログファイル名です。
 logfile: enotify-slack.log
+
+# 通知するイベントの日時をこのタイムゾーンで表示します。
+timezone: "America/Los_Angeles"
