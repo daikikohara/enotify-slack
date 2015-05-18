@@ -14,12 +14,13 @@ type Partake struct {
 	result struct {
 		Result string
 		Events []struct {
-			Id        string
-			Title     string
-			Address   string
-			Place     string
-			BeginDate string
-			Summary   string
+			Id          string
+			Title       string
+			Address     string
+			Place       string
+			BeginDate   string
+			Summary     string
+			Description string
 		}
 	}
 }
@@ -36,12 +37,13 @@ func (self *Partake) Get(baseurl, keyword, nickname string) ([]Event, error) {
 		}
 		for _, e := range self.result.Events {
 			event := Event{
-				Id:         e.Id,
-				Title:      e.Title,
-				Started_at: e.BeginDate,
-				Url:        "http://partake.in/events/" + e.Id,
-				Summary:    e.Summary,
-				Place:      e.Address + "\n" + e.Place,
+				Id:          e.Id,
+				Title:       e.Title,
+				Started_at:  e.BeginDate,
+				Url:         "http://partake.in/events/" + e.Id,
+				Summary:     e.Summary,
+				Place:       e.Address + "\n" + e.Place,
+				Description: e.Description,
 			}
 			events = append(events, event)
 		}

@@ -4,6 +4,8 @@ keyword: golang,slack,anotherkeyword
 # イベントにkeywordが含まれていなくてもnicknameが含まれていれば通知します。
 # atnd,connpass,zusaarのみ対応しています。
 nickname: nickname1,nickname2
+# tabooに設定した単語がイベントタイトルや説明文に含まれている場合は他の条件にマッチしたとしても通知しません。
+taboo: party,anothertaboo,etc
 # 場所にこれらの単語が含まれているもののみ通知します。
 place: 
   - 東京

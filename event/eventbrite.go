@@ -46,12 +46,13 @@ func (self *Eventbrite) Get(baseurl, keyword, nickname string) ([]Event, error) 
 		}
 		for _, e := range self.result.Events {
 			event := Event{
-				Id:         e.Id,
-				Title:      e.Name.Text,
-				Started_at: format(e.Start.Utc),
-				Url:        e.Url,
-				Summary:    e.Description.Text,
-				Place:      e.Venue.Address.Address_1 + "\n" + e.Venue.Address.City,
+				Id:          e.Id,
+				Title:       e.Name.Text,
+				Started_at:  format(e.Start.Utc),
+				Url:         e.Url,
+				Summary:     e.Description.Text,
+				Place:       e.Venue.Address.Address_1 + "\n" + e.Venue.Address.City,
+				Description: e.Description.Text,
 			}
 			event.Summary = trim(event.Summary)
 			events = append(events, event)

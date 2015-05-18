@@ -11,20 +11,24 @@ import (
 // Event is sent to Slack in this format.
 // Atcual event type depends on event api providers, so provider-specific event type is defined in the each file and converted to this Event.
 type Event struct {
-	Id         string
-	Title      string
-	Summary    string
-	Url        string
-	Started_at string
-	Place      string
+	Id          string
+	Title       string
+	Summary     string
+	Url         string
+	Started_at  string
+	Place       string
+	Description string
 }
 
 // IsValid checks if the event is valid according to the place and date.
-func (event *Event) IsValid(place []string) bool {
+func (event *Event) IsValid(place []string, taboo string) bool {
 	if !event.isValidPlace(place) {
 		return false
 	}
 	if !event.isValidDate() {
+		return false
+	}
+	if !event.isValidDesc(taboo) {
 		return false
 	}
 	return true
@@ -52,4 +56,20 @@ func (event *Event) isValidDate() bool {
 		return true
 	}
 	return false
+}
+
+// isValidDesc checks if the tile, summary or description is valid.
+func (event *Event) isValidDesc(taboo string) bool {
+	for _, t := range strings.Split(taboo, ",") {
+		if strings.Contains(event.Title, t) {
+			return false
+		}
+		if strings.Contains(event.Summary, t) {
+			return false
+		}
+		if strings.Contains(event.Description, t) {
+			return false
+		}
+	}
+	return true
 }

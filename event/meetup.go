@@ -38,12 +38,13 @@ func (self *Meetup) Get(baseurl, keyword, nickname string) ([]Event, error) {
 		}
 		for _, e := range self.result.Results {
 			event := Event{
-				Id:         e.Id,
-				Title:      e.Name,
-				Started_at: formatEpoch(e.Time),
-				Url:        e.Event_url,
-				Summary:    e.Description,
-				Place:      e.Venue.Address_1 + "\n" + e.Venue.City,
+				Id:          e.Id,
+				Title:       e.Name,
+				Started_at:  formatEpoch(e.Time),
+				Url:         e.Event_url,
+				Summary:     e.Description,
+				Place:       e.Venue.Address_1 + "\n" + e.Venue.City,
+				Description: e.Description,
 			}
 			event.Summary = trim(event.Summary)
 			events = append(events, event)

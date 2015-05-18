@@ -58,7 +58,7 @@ func getEvent(provider string, payload chan *Payload) {
 		handleError("Error on getting event from "+provider, err, payload)
 		for _, event := range events {
 			key := []byte(provider + ":" + fmt.Sprintf("%v", event.Id))
-			if event.IsValid(config.Place) && !boltdb.Exists(key) {
+			if event.IsValid(config.Place, config.Taboo) && !boltdb.Exists(key) {
 				value, _ := json.Marshal(event)
 				boltdb.Put(key, value)
 				payload <- ConstructSlackMessage(provider, &event, config)

@@ -15,13 +15,14 @@ type Atnd struct {
 		Results_start    int
 		Events           []struct {
 			Event struct {
-				Event_id   string
-				Title      string
-				Catch      string
-				Event_url  string
-				Started_at string
-				Address    string
-				Place      string
+				Event_id    string
+				Title       string
+				Catch       string
+				Event_url   string
+				Started_at  string
+				Address     string
+				Place       string
+				Description string
 			}
 		}
 	}
@@ -41,12 +42,13 @@ func (self *Atnd) Get(baseurl, keyword, nickname string) ([]Event, error) {
 			}
 			for _, atnd := range self.result.Events {
 				event := Event{
-					Id:         atnd.Event.Event_id,
-					Title:      atnd.Event.Title,
-					Started_at: format(atnd.Event.Started_at),
-					Url:        atnd.Event.Event_url,
-					Summary:    atnd.Event.Catch,
-					Place:      atnd.Event.Address + "\n" + atnd.Event.Place,
+					Id:          atnd.Event.Event_id,
+					Title:       atnd.Event.Title,
+					Started_at:  format(atnd.Event.Started_at),
+					Url:         atnd.Event.Event_url,
+					Summary:     atnd.Event.Catch,
+					Place:       atnd.Event.Address + "\n" + atnd.Event.Place,
+					Description: atnd.Event.Description,
 				}
 				events = append(events, event)
 			}

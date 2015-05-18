@@ -35,12 +35,13 @@ func (self *Strtacademy) Get(baseurl, keyword, nickname string) ([]Event, error)
 		}
 		for _, strtacademy := range self.result.Events {
 			event := Event{
-				Id:         strtacademy.Event_id,
-				Title:      strtacademy.Title,
-				Started_at: format(strtacademy.Start_at),
-				Url:        strtacademy.Url,
-				Summary:    strtacademy.Details,
-				Place:      strtacademy.Address + "\n" + strtacademy.Venue,
+				Id:          strtacademy.Event_id,
+				Title:       strtacademy.Title,
+				Started_at:  format(strtacademy.Start_at),
+				Url:         strtacademy.Url,
+				Summary:     strtacademy.Details,
+				Place:       strtacademy.Address + "\n" + strtacademy.Venue,
+				Description: strtacademy.Details,
 			}
 			if !contains(event.Title, event.Summary, keyword) {
 				continue

@@ -18,29 +18,31 @@ const (
 
 var (
 	eventok = Event{
-		Id:         "123",
-		Title:      "example#1",
-		Summary:    "summary123",
-		Url:        "http://example.connpass.com/event/123/",
-		Started_at: "2015-09-30 19:00",
-		Place:      "address123\nplace123",
+		Id:          "123",
+		Title:       "example#1",
+		Summary:     "summary123",
+		Url:         "http://example.connpass.com/event/123/",
+		Started_at:  "2015-09-30 19:00",
+		Place:       "address123\nplace123",
+		Description: "summary123",
 	}
 	eventoklong = Event{
-		Id:      "123",
-		Title:   "example#1",
-		Summary: "summary123toolongtoolongtoolongtoolongtoolongtoolo...",
-
-		Url:        "http://example.connpass.com/event/123/",
-		Started_at: "2015-09-30 19:00",
-		Place:      "address123\nplace123",
+		Id:          "123",
+		Title:       "example#1",
+		Summary:     "summary123toolongtoolongtoolongtoolongtoolongtoolo...",
+		Url:         "http://example.connpass.com/event/123/",
+		Started_at:  "2015-09-30 19:00",
+		Place:       "address123\nplace123",
+		Description: "summary123toolongtoolongtoolongtoolongtoolongtoolong",
 	}
 	eventInvalidTime = Event{
-		Id:         "123",
-		Title:      "example#1",
-		Summary:    "summary123",
-		Url:        "http://example.connpass.com/event/123/",
-		Started_at: "20150930T190000.0000900",
-		Place:      "address123\nplace123",
+		Id:          "123",
+		Title:       "example#1",
+		Summary:     "summary123",
+		Url:         "http://example.connpass.com/event/123/",
+		Started_at:  "20150930T190000.0000900",
+		Place:       "address123\nplace123",
+		Description: "summary123",
 	}
 )
 
