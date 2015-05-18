@@ -1,7 +1,10 @@
 package event
 
 import (
+	"bytes"
 	"fmt"
+
+	"golang.org/x/net/html"
 
 	"strings"
 	"time"
@@ -61,15 +64,73 @@ func (event *Event) isValidDate() bool {
 // isValidDesc checks if the tile, summary or description is valid.
 func (event *Event) isValidDesc(taboo string) bool {
 	for _, t := range strings.Split(taboo, ",") {
-		if strings.Contains(event.Title, t) {
+		if strings.Contains(strings.ToLower(event.Title), strings.ToLower(t)) {
 			return false
 		}
-		if strings.Contains(event.Summary, t) {
+		if strings.Contains(strings.ToLower(event.Summary), strings.ToLower(t)) {
 			return false
 		}
-		if strings.Contains(event.Description, t) {
+		if strings.Contains(strings.ToLower(event.Description), strings.ToLower(t)) {
 			return false
 		}
 	}
 	return true
+}
+
+// contains checks if keyword is contained in either title or description.
+func (event *Event) contains(keyword string) bool {
+	for _, q := range strings.Split(keyword, ",") {
+		if strings.Contains(strings.ToLower(event.Title), strings.ToLower(q)) ||
+			strings.Contains(strings.ToLower(event.Summary), strings.ToLower(q)) ||
+			strings.Contains(strings.ToLower(event.Description), strings.ToLower(q)) {
+			return true
+		}
+	}
+	return false
+}
+
+// trim returns first 100 characters of string passed by the argument.
+func trim(s string) string {
+	if len([]rune(s)) > 100 {
+		return string([]rune(s)[:100]) + "..."
+	}
+	return s
+}
+
+// format formats date format for the common format used for Slack message.
+func format(date string) string {
+	t, err := time.Parse(time.RFC3339Nano, date)
+	if err != nil {
+		return date
+	}
+	return t.In(timezone).Format(timeFormat)
+}
+
+// formatEpoch formats time in milliseconds in epoch to the common format used for Slack message.
+func formatEpoch(i int64) string {
+	tm := time.Unix(i/1000, 0)
+	return tm.In(timezone).Format(timeFormat)
+}
+
+// parse parses html to change it into plain text.
+func parse(h string) string {
+	doc, err := html.Parse(strings.NewReader(h))
+	if err != nil {
+		// just return original html in case of error
+		return h
+	}
+
+	var buffer bytes.Buffer
+	var f func(*html.Node, *bytes.Buffer)
+	f = func(n *html.Node, buffer *bytes.Buffer) {
+		if n.Type == html.TextNode {
+			// this call might fail but ignore.
+			buffer.WriteString(n.Data)
+		}
+		for c := n.FirstChild; c != nil; c = c.NextSibling {
+			f(c, buffer)
+		}
+	}
+	f(doc, &buffer)
+	return buffer.String()
 }

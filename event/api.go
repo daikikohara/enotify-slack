@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
 	"time"
 )
 
@@ -76,37 +75,4 @@ func GetJson(url string) (interface{}, error) {
 		return nil, err
 	}
 	return result, nil
-}
-
-// format formats date format for the common format used for Slack message.
-func format(date string) string {
-	t, err := time.Parse(time.RFC3339Nano, date)
-	if err != nil {
-		return date
-	}
-	return t.In(timezone).Format(timeFormat)
-}
-
-// formatEpoch formats time in milliseconds in epoch to the common format used for Slack message.
-func formatEpoch(i int64) string {
-	tm := time.Unix(i/1000, 0)
-	return tm.In(timezone).Format(timeFormat)
-}
-
-// contains checks if keyword is contained in either title or description.
-func contains(title, description, keyword string) bool {
-	for _, q := range strings.Split(keyword, ",") {
-		if strings.Contains(strings.ToLower(title), strings.ToLower(q)) || strings.Contains(strings.ToLower(description), strings.ToLower(q)) {
-			return true
-		}
-	}
-	return false
-}
-
-// trim returns first 50 characters of string passed by the argument.
-func trim(s string) string {
-	if len([]rune(s)) > 50 {
-		return string([]rune(s)[:50]) + "..."
-	}
-	return s
 }

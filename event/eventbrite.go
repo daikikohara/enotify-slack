@@ -50,11 +50,10 @@ func (self *Eventbrite) Get(baseurl, keyword, nickname string) ([]Event, error) 
 				Title:       e.Name.Text,
 				Started_at:  format(e.Start.Utc),
 				Url:         e.Url,
-				Summary:     e.Description.Text,
+				Summary:     trim(e.Description.Text),
 				Place:       e.Venue.Address.Address_1 + "\n" + e.Venue.Address.City,
 				Description: e.Description.Text,
 			}
-			event.Summary = trim(event.Summary)
 			events = append(events, event)
 		}
 		time.Sleep(time.Duration(1 * time.Second))

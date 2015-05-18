@@ -29,11 +29,11 @@ var (
 	eventoklong = Event{
 		Id:          "123",
 		Title:       "example#1",
-		Summary:     "summary123toolongtoolongtoolongtoolongtoolongtoolo...",
+		Summary:     "summary123toolongtoolongtoolongtoolongtoolongtoolongsummary123toolongtoolongtoolongtoolongtoolongtoo...",
 		Url:         "http://example.connpass.com/event/123/",
 		Started_at:  "2015-09-30 19:00",
 		Place:       "address123\nplace123",
-		Description: "summary123toolongtoolongtoolongtoolongtoolongtoolong",
+		Description: "summary123toolongtoolongtoolongtoolongtoolongtoolongsummary123toolongtoolongtoolongtoolongtoolongtoolong",
 	}
 	eventInvalidTime = Event{
 		Id:          "123",

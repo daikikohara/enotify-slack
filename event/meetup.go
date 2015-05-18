@@ -42,11 +42,10 @@ func (self *Meetup) Get(baseurl, keyword, nickname string) ([]Event, error) {
 				Title:       e.Name,
 				Started_at:  formatEpoch(e.Time),
 				Url:         e.Event_url,
-				Summary:     e.Description,
 				Place:       e.Venue.Address_1 + "\n" + e.Venue.City,
-				Description: e.Description,
+				Description: parse(e.Description),
 			}
-			event.Summary = trim(event.Summary)
+			event.Summary = trim(event.Description)
 			events = append(events, event)
 		}
 		time.Sleep(time.Duration(1 * time.Second))
