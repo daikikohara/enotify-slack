@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	validConf = "keyword: keyword1,keyword2\nnickname: person1,person2\nplace:\n  - Tokyo\n  - Kanagawa\nerror_to_slack: true\nprovider:\n  connpass:\n    url:   http://connpass.com/api/v1/event/?order=3&count=50&\n    color: \"#D00000\"\n    interval: 300\nslack:\n  pretext: slackpretext\n  url:      https://test.slack.com/services/hooks/incoming-webhook?token=tokenname\n  channel: \"#notify-channel\"\n  short:  false\n  interval: 3\nboltdb:\n  dbfile: it-event.db\n  bucketname: it-event\nlogfile: ./enotify-slack.log\n"
+	validConf = "keyword: keyword1,keyword2\nnickname: person1,person2\nplace:\n  - Tokyo\n  - Kanagawa\nerror_to_slack: true\nprovider:\n  connpass:\n    url:   http://connpass.com/api/v1/event/?order=3&count=50&\n    color: \"#D00000\"\n    interval: 300\nslack:\n  pretext: slackpretext\n  url:      https://test.slack.com/services/hooks/incoming-webhook?token=tokenname\n  channel: \"#notify-channel\"\n  short:  false\n  interval: 3\nboltdb:\n  dbfile: it-event.db\n  bucketname: it-event\nlogfile: ./enotify-slack.log\ntimezone: Asia/Tokyo\n"
 	// slice for invalid conf contents
 	invalidConf = []string{
 		// invalid slack interval data

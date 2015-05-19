@@ -18,28 +18,31 @@ const (
 
 var (
 	eventok = Event{
-		Id:         "123",
-		Title:      "example#1",
-		Summary:    "summary123",
-		Url:        "http://example.connpass.com/event/123/",
-		Started_at: "2015-09-30 19:00",
-		Place:      "address123\nplace123",
+		Id:          "123",
+		Title:       "example#1",
+		Summary:     "summary123",
+		Url:         "http://example.connpass.com/event/123/",
+		Started_at:  "2015-09-30 19:00",
+		Place:       "address123\nplace123",
+		Description: "summary123",
 	}
 	eventoklong = Event{
-		Id:         "123",
-		Title:      "example#1",
-		Summary:    "summary123toolongtoolongtoolongtoolongtoolongtoolo...",
-		Url:        "http://example.connpass.com/event/123/",
-		Started_at: "2015-09-30 19:00",
-		Place:      "address123\nplace123",
+		Id:          "123",
+		Title:       "example#1",
+		Summary:     "summary123toolongtoolongtoolongtoolongtoolongtoolongsummary123toolongtoolongtoolongtoolongtoolongtoo...",
+		Url:         "http://example.connpass.com/event/123/",
+		Started_at:  "2015-09-30 19:00",
+		Place:       "address123\nplace123",
+		Description: "summary123toolongtoolongtoolongtoolongtoolongtoolongsummary123toolongtoolongtoolongtoolongtoolongtoolong",
 	}
 	eventInvalidTime = Event{
-		Id:         "123",
-		Title:      "example#1",
-		Summary:    "summary123",
-		Url:        "http://example.connpass.com/event/123/",
-		Started_at: "20150930T190000.0000900",
-		Place:      "address123\nplace123",
+		Id:          "123",
+		Title:       "example#1",
+		Summary:     "summary123",
+		Url:         "http://example.connpass.com/event/123/",
+		Started_at:  "20150930T190000.0000900",
+		Place:       "address123\nplace123",
+		Description: "summary123",
 	}
 )
 
@@ -53,6 +56,8 @@ var funcNameTable = []struct {
 	{"connpass", "Connpass"},
 	{"zusaar", "Zusaar"},
 	{"strtacademy", "Strtacademy"},
+	{"meetup", "Meetup"},
+	{"eventbrite", "Eventbrite"},
 }
 
 func TestGetApi(t *testing.T) {
@@ -60,7 +65,12 @@ func TestGetApi(t *testing.T) {
 	for _, testcase := range funcNameTable {
 		assert.Contains(reflect.TypeOf(GetApi(testcase.providerName)).Elem().Name(), testcase.functionName, "GetApi test failed for "+testcase.providerName)
 	}
-	//assert.Empty(GetApi("other"))
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fail()
+		}
+	}()
+	GetApi("other")
 }
 
 func TestGetJson(t *testing.T) {
@@ -92,4 +102,14 @@ func TestGetJson(t *testing.T) {
 	if result.(map[string]interface{})["event"] != "123" {
 		t.Fail()
 	}
+}
+
+func TestSetTimezone(t *testing.T) {
+	SetTimezone("Asia/Tokyo")
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fail()
+		}
+	}()
+	SetTimezone("ERROR")
 }

@@ -10,6 +10,7 @@ import (
 var validTestTable = []struct {
 	event  Event
 	place  []string
+	taboo  string
 	result bool
 }{
 	{ //OK
@@ -22,6 +23,7 @@ var validTestTable = []struct {
 			Place:      "Tokyo",
 		},
 		[]string{"Tokyo", "place"},
+		"taboo",
 		true,
 	},
 	{ //invalid place
@@ -34,6 +36,7 @@ var validTestTable = []struct {
 			Place:      "Kanagawa",
 		},
 		[]string{"Tokyo", "place"},
+		"taboo",
 		false,
 	},
 	{ // invalid date
@@ -46,6 +49,47 @@ var validTestTable = []struct {
 			Place:      "Tokyo",
 		},
 		[]string{"Tokyo", "place"},
+		"taboo",
+		false,
+	},
+	{ // contains taboo in title
+		Event{
+			Id:         "id",
+			Title:      "title,taboo",
+			Summary:    "summary",
+			Url:        "url",
+			Started_at: "9999-12-31 23:59",
+			Place:      "Tokyo",
+		},
+		[]string{"Tokyo", "place"},
+		"taboo",
+		false,
+	},
+	{ // contains taboo in summary
+		Event{
+			Id:         "id",
+			Title:      "title",
+			Summary:    "summary,taboo",
+			Url:        "url",
+			Started_at: "9999-12-31 23:59",
+			Place:      "Tokyo",
+		},
+		[]string{"Tokyo", "place"},
+		"taboo",
+		false,
+	},
+	{ // contains taboo in description
+		Event{
+			Id:          "id",
+			Title:       "title",
+			Summary:     "summary",
+			Url:         "url",
+			Started_at:  "9999-12-31 23:59",
+			Place:       "Tokyo",
+			Description: "description foo",
+		},
+		[]string{"Tokyo", "place"},
+		"taboo,foo",
 		false,
 	},
 	{ // date format is invalid
@@ -58,6 +102,7 @@ var validTestTable = []struct {
 			Place:      "Tokyo",
 		},
 		[]string{"Tokyo", "place"},
+		"taboo",
 		false,
 	},
 }
@@ -65,6 +110,6 @@ var validTestTable = []struct {
 func TestIsValid(t *testing.T) {
 	assert := assert.New(t)
 	for _, testcase := range validTestTable {
-		assert.Equal(testcase.result, testcase.event.IsValid(testcase.place), "Event.IsValid test failed")
+		assert.Equal(testcase.result, testcase.event.IsValid(testcase.place, testcase.taboo), "Event.IsValid test failed")
 	}
 }

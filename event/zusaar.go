@@ -13,13 +13,14 @@ type Zusaar struct {
 	result struct {
 		Results_returned int
 		Event            []struct {
-			Event_id   string
-			Title      string
-			Catch      string
-			Event_url  string
-			Started_at string
-			Address    string
-			Place      string
+			Event_id    string
+			Title       string
+			Catch       string
+			Event_url   string
+			Started_at  string
+			Address     string
+			Place       string
+			Description string
 		}
 	}
 }
@@ -38,12 +39,13 @@ func (self *Zusaar) Get(baseurl, keyword, nickname string) ([]Event, error) {
 			}
 			for _, e := range self.result.Event {
 				event := Event{
-					Id:         e.Event_id,
-					Title:      e.Title,
-					Started_at: format(e.Started_at),
-					Url:        e.Event_url,
-					Summary:    e.Catch,
-					Place:      e.Address + "\n" + e.Place,
+					Id:          e.Event_id,
+					Title:       e.Title,
+					Started_at:  format(e.Started_at),
+					Url:         e.Event_url,
+					Summary:     e.Catch,
+					Place:       e.Address + "\n" + e.Place,
+					Description: e.Description,
 				}
 				events = append(events, event)
 			}

@@ -18,6 +18,7 @@ func TestPrintln(t *testing.T) {
 	}
 	defer os.Remove(logFile.Name())
 
+	// success
 	logger := NewLogger(logFile.Name())
 	logger.Println(logMessage)
 
@@ -30,4 +31,12 @@ func TestPrintln(t *testing.T) {
 	}
 
 	logger.Close()
+
+	// failure
+	defer func() {
+		if r := recover(); r == nil {
+			t.Fail()
+		}
+	}()
+	logger = NewLogger("/path/to/noexist")
 }

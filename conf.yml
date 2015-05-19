@@ -1,26 +1,31 @@
-# タイトルとイベント説明文の中にこれらの単語が含まれているものを通知します。
-keyword: golang,slack,anotherkeyword
-# イベントオーナーまたはイベント参加者に以下の参加者が含まれているものを通知します。
-# イベントにkeywordが含まれていなくてもnicknameが含まれていれば通知します。
-# atnd,connpass,zusaarのみ対応しています。
-nickname: nickname1,nickname2
-# 場所にこれらの単語が含まれているもののみ通知します。
+# If event title/description contains 'keyword', the event will be sent to Slack.
+keyword: golang,slack,anotherkeyword,etc
+
+# If the owner or participants contains 'nickname', the event will be sent to Slack.
+# 'nickname' is OR'd with keyword.
+# 'nickname' only works for Atnd, Connpass and Zusaar.
+nickname: nickname1,nickname2,etc
+
+# If event title/description contains 'taboo', the event will Not be sent to Slack even if the other conditions are satisfied.
+taboo: taboo1,taboo2,etc
+
+# Event will be sent if 'place' is included in the event address.
+# 'place' is AND'd with 'keyword' or 'nickname'.
 place: 
-  - 東京
-  - 神奈川
-  - 埼玉
-  - 千葉
-  - 未定
-  - 調整中
-# イベント取得でエラーが発生した場合にslackに通知します。
-# ネットワークが不安定になると頻発することがあるのでデフォルトはログファイルのみです。
-error_to_slack: false
-# イベント提供サイトごとの設定を記載します。
-# urlはAPIのURLです。
-# colorはSlackで表示される際の色です。
-# intervalはAPIを実行する間隔(秒)です。負荷をかけ過ぎないよう注意して下さい。
-# また、通知時のアイコンはイベント提供者名(例えば:atnd:)としています。
-# 事前にアイコンに対応した絵文字を登録しておかないとそのまま文字として表示されます。
+  - "San Jose"
+  - "Santa Clara"
+  - "Sunnyvale"
+  - "Mountain View"
+
+# Event provider specific configuration.
+#    url:       url for the API. API key for meetup and eventbrite must be set using your key.
+#    color:     color to be displayed on Slack.
+#    interval:  interval in second to execute the API.
+#               Keep the value moderate to avoid overloading the event provider.
+# Comment some provider's name(,url color and interval) out, if you don't want to get event information from them.
+#
+# NOTE: Icon in Slack message is shown as :providername: (like ":meetup:").
+#       Please set the icon for your Slack in advance or you'll see the name as text.
 provider:
   atnd:
     url:   https://api.atnd.org/events/?count=50&format=json&
@@ -34,6 +39,14 @@ provider:
     url:   http://api.doorkeeper.jp/events/?sort=published_at&locale=ja&
     color: "#00D0A0"
     interval: 600
+  eventbrite:
+    url: https://www.eventbriteapi.com/v3/events/search/?token=your_api_token_here&
+    color: "#FFaa33"
+    interval: 600
+  meetup:
+    url: https://api.meetup.com/2/open_events?key=your_api_key_here&
+    color: "#F00000"
+    interval: 600
   partake:
     url:  http://partake.in/api/event/search?sortOrder=createdAt&maxNum=50&query=
     color: "#AAAAAA"
@@ -46,23 +59,35 @@ provider:
     url:   http://www.zusaar.com/api/event/?count=50&
     color: "#0000FF"
     interval: 600
-# Slack通知の設定です。
-# pretextはイベント情報の前に付与する文字です。
-# urlはSlackのincoming-webhookのURLです。環境に合わせて記載して下さい。
-# channelは通知するチャネル名です。
-# shortは表示方法です。falseにすると整形されて表示されtrueにすると詰めて表示されます。
-# 詳細はincoming-webhookのページを参照してください。
-# intervalはSlackに通知する間隔(秒)です。初回起動時やイベントが大量に登録されたときに
-# Slackのrate limit(1message/sec)に達してしまうのでインターバルを入れてます。
+
+# Slack configuration.
+#    pretex:    text to be displayed before event details.
+#    url:       url for your your Slack incoming-webhook. modify the token.
+#    channel:   name of Slack channel that event is sent to.
+#    short:     if true, event details are displayed side-by-side.
+#    interval:  interval in second to send event to Slack.
+#               This prevent reaching rate limit when many events are registered in a short period.
 slack:
-  pretext: "ヒャッハー！"
+  pretext: "New Event Arrived!"
   url:     https://hooks.slack.com/services/YOUR/TOKEN/HERE
   channel: "#event-notify"
   short:  false
   interval: 3
-# 過去に通知したイベントの情報を保持するboltdbというKVSの情報です。基本的には変更不要です。
+
+# timezone 
+# The time of event sent to Slack is shown as time in this time zone.
+timezone: "America/Los_Angeles"
+
+# db file configuration.
+# This usually does not need to be modified.
 boltdb:
   dbfile: enotify-slack.db
   bucketname: enotify-slack 
-# ログファイル名です。
+
+# log file name.
+# This usually does not need to be modified.
 logfile: enotify-slack.log
+
+# If 'error_to_slack' is true, error messages are sent to Slack when error occurs.
+# Recommended to leave this false since lots of messages are sent when network error occurs.
+error_to_slack: false

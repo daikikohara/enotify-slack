@@ -9,11 +9,11 @@ import (
 
 // Config represents configurations defined in a yaml file.
 type Config struct {
-	Keyword      string
-	Nickname     string
-	Place        []string
-	ErrorToSlack bool `yaml:"error_to_slack"`
-	Provider     map[string]struct {
+	Keyword  string
+	Nickname string
+	Taboo    string
+	Place    []string
+	Provider map[string]struct {
 		Url      string
 		Color    string
 		Interval uint32
@@ -29,7 +29,9 @@ type Config struct {
 		Dbfile     string
 		Bucketname string
 	}
-	Logfile string
+	Logfile      string
+	Timezone     string
+	ErrorToSlack bool `yaml:"error_to_slack"`
 }
 
 // NewConfig constructs Config using a yaml file passed as the argument.

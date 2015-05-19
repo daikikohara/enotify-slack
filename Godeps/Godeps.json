@@ -1,6 +1,6 @@
 {
 	"ImportPath": "github.com/daikikohara/enotify-slack",
-	"GoVersion": "go1.3",
+	"GoVersion": "go1.4.2",
 	"Deps": [
 		{
 			"ImportPath": "github.com/boltdb/bolt",
@@ -14,6 +14,10 @@
 		{
 			"ImportPath": "github.com/stretchr/testify/assert",
 			"Rev": "8ce79b9f0b77745113f82c17d0756771456ccbd3"
+		},
+		{
+			"ImportPath": "golang.org/x/net/html",
+			"Rev": "bb64f4dc73d4ab97978d5e1cb34515dcc570361b"
 		},
 		{
 			"ImportPath": "gopkg.in/yaml.v1",

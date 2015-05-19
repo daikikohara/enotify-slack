@@ -35,17 +35,17 @@ func (self *Doorkeeper) Get(baseurl, keyword, nickname string) ([]Event, error) 
 	var events []Event
 	for _, e := range self.result {
 		event := Event{
-			Id:         e.Event.Id,
-			Title:      e.Event.Title,
-			Started_at: format(e.Event.Starts_at),
-			Url:        e.Event.Public_url,
-			Summary:    e.Event.Description,
-			Place:      e.Event.Address + "\n" + e.Event.Venue_name,
+			Id:          e.Event.Id,
+			Title:       e.Event.Title,
+			Started_at:  format(e.Event.Starts_at),
+			Url:         e.Event.Public_url,
+			Place:       e.Event.Address + "\n" + e.Event.Venue_name,
+			Description: parse(e.Event.Description),
 		}
-		if !contains(event.Title, event.Summary, keyword) {
+		event.Summary = trim(event.Description)
+		if !event.contains(keyword) {
 			continue
 		}
-		event.Summary = trim(event.Summary)
 		events = append(events, event)
 	}
 	return events, nil
