@@ -2,8 +2,7 @@ enotify-slack
 =============
 
 [![Build Status](https://drone.io/github.com/daikikohara/enotify-slack/status.png)](https://drone.io/github.com/daikikohara/enotify-slack/latest)
-[![Coverage Status](https://img.shields.io/coveralls/daikikohara/enotify-slack.svg)](https://coveralls.io/r/daikikohara/enotify-slack?branch=master)
-
+[![Coverage Status](https://coveralls.io/repos/daikikohara/enotify-slack/badge.svg?branch=master&service=github)](https://coveralls.io/github/daikikohara/enotify-slack?branch=master)
 
 日本語の紹介記事は[こちら](http://qiita.com/kiida/items/373446edd2fb09da82ca)。
 
