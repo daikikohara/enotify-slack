@@ -54,7 +54,7 @@ func main() {
 func getEvent(provider string, payload chan *Payload) {
 	api := GetApi(provider)
 	for {
-		events, err := api.Get(config.Provider[provider].Url, config.Keyword, config.Nickname)
+		events, err := api.Get(config.Provider[provider].Url, config.Keyword, config.Nickname, config.Place)
 		handleError("Error on getting event from "+provider, err, payload)
 		for _, event := range events {
 			key := []byte(provider + ":" + fmt.Sprintf("%v", event.Id))

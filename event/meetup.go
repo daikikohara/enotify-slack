@@ -25,7 +25,7 @@ type Meetup struct {
 	}
 }
 
-func (self *Meetup) Get(baseurl, keyword, nickname string) ([]Event, error) {
+func (self *Meetup) Get(baseurl, keyword, nickname string, places []string) ([]Event, error) {
 	var events []Event
 	for _, param := range strings.Split(keyword, ",") {
 		query := "topic=" + param

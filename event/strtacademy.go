@@ -23,7 +23,7 @@ type Strtacademy struct {
 	}
 }
 
-func (self *Strtacademy) Get(baseurl, keyword, nickname string) ([]Event, error) {
+func (self *Strtacademy) Get(baseurl, keyword, nickname string, places []string) ([]Event, error) {
 	var events []Event
 	for i := 1; i <= 10; i++ {
 		result, err := GetJson(baseurl + strconv.Itoa(i))

@@ -1,16 +1,27 @@
+# Optional settings and/or insignificant settings are commented out. Please modify the others.
+
+
 # If event title/description contains 'keyword', the event will be sent to Slack.
+#
 keyword: golang,slack,anotherkeyword,etc
 
 # If the owner or participants contains 'nickname', the event will be sent to Slack.
 # 'nickname' is OR'd with keyword.
-# 'nickname' only works for Atnd, Connpass and Zusaar.
+#
+# NOTE: 'nickname' only works for Atnd, Connpass and Zusaar.
+#
 nickname: nickname1,nickname2,etc
 
 # If event title/description contains 'taboo', the event will Not be sent to Slack even if the other conditions are satisfied.
+#
 taboo: taboo1,taboo2,etc
 
 # Event will be sent if 'place' is included in the event address.
 # 'place' is AND'd with 'keyword' or 'nickname'.
+# NOTE: If you want to get information from Eventbrite,
+#        - write city name since Eventbrite requires city name.
+#        - use alphabet name for the city (Among non-alphabet character, only Japanese city(prefecture) name in Kanji character is supported).
+#
 place: 
   - "San Jose"
   - "Santa Clara"
@@ -18,76 +29,71 @@ place:
   - "Mountain View"
 
 # Event provider specific configuration.
-#    url:       url for the API. API key for meetup and eventbrite must be set using your key.
-#    color:     color to be displayed on Slack.
-#    interval:  interval in second to execute the API.
-#               Keep the value moderate to avoid overloading the event provider.
-# Comment some provider's name(,url color and interval) out, if you don't want to get event information from them.
+# Following settings are supported.
+#    token:     (required for eventbrite and meetup) API key for meetup and API token for eventbrite.
+#    url:       (optional) Url for the API.
+#               default value: see the source file(conf.go)
+#    color:     (optional) color to be displayed on Slack.
+#               default value: see the source file(conf.go)
+#    interval:  interval in second to call the API.
+#               Keep the value moderate to avoid overloading the event provider and exceeding the rate limit.
+#               default value: 3600
+# Comment any provider's name out, if you don't want to get event information from the provider.
 #
 # NOTE: Icon in Slack message is shown as :providername: (like ":meetup:").
 #       Please set the icon for your Slack in advance or you'll see the name as text.
+#
 provider:
   atnd:
-    url:   https://api.atnd.org/events/?count=50&format=json&
-    color: "#000000"
-    interval: 600
   connpass:
-    url:   http://connpass.com/api/v1/event/?order=3&count=50&
-    color: "#D00000"
-    interval: 600
   doorkeeper:
-    url:   http://api.doorkeeper.jp/events/?sort=published_at&locale=ja&
-    color: "#00D0A0"
-    interval: 600
-  eventbrite:
-    url: https://www.eventbriteapi.com/v3/events/search/?token=your_api_token_here&
-    color: "#FFaa33"
-    interval: 600
-  meetup:
-    url: https://api.meetup.com/2/open_events?key=your_api_key_here&
-    color: "#F00000"
-    interval: 600
   partake:
-    url:  http://partake.in/api/event/search?sortOrder=createdAt&maxNum=50&query=
-    color: "#AAAAAA"
-    interval: 600
   strtacademy:
-    url: http://www.street-academy.com/api/v1/events?page=
-    color: "#009900"
-    interval: 600
   zusaar:
-    url:   http://www.zusaar.com/api/event/?count=50&
-    color: "#0000FF"
-    interval: 600
+  eventbrite:
+    token: your_token_here
+  meetup:
+    token: your_api_key_here
 
 # Slack configuration.
-#    pretex:    text to be displayed before event details.
-#    url:       url for your your Slack incoming-webhook. modify the token.
-#    channel:   name of Slack channel that event is sent to.
+# Following settings are supported.
+#    url:       (required) Url for your Slack incoming-webhook. Modify the token.
+#    pretex:    (optional) text to be displayed before event details.
+#               default value: "New Event Arrived!"
+#    channel:   (optional) name of Slack channel that event is sent to.
+#               default value: "#event-notify"
 #    short:     if true, event details are displayed side-by-side.
+#               default value: false
 #    interval:  interval in second to send event to Slack.
 #               This prevent reaching rate limit when many events are registered in a short period.
+#               default value: 3
+#
 slack:
-  pretext: "New Event Arrived!"
-  url:     https://hooks.slack.com/services/YOUR/TOKEN/HERE
+  url:     "https://hooks.slack.com/services/YOUR/TOKEN/HERE"
   channel: "#event-notify"
-  short:  false
-  interval: 3
 
 # timezone 
 # The time of event sent to Slack is shown as time in this time zone.
+# default value: "America/Los_Angeles"
+#
 timezone: "America/Los_Angeles"
 
 # db file configuration.
 # This usually does not need to be modified.
-boltdb:
-  dbfile: enotify-slack.db
-  bucketname: enotify-slack 
+# default value: "enotify-slack.db" for dbfile, "enotify-slack" for bucketname
+#
+#boltdb:
+#  dbfile: enotify-slack.db
+#  bucketname: enotify-slack 
 
 # log file name.
 # This usually does not need to be modified.
-logfile: enotify-slack.log
+# default value: "enotify-slack.log"
+#
+#logfile: enotify-slack.log
 
 # If 'error_to_slack' is true, error messages are sent to Slack when error occurs.
 # Recommended to leave this false since lots of messages are sent when network error occurs.
-error_to_slack: false
+# default value: false
+#
+#error_to_slack: false

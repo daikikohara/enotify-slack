@@ -10,7 +10,7 @@ import (
 // Atnd implements Api
 // Atnd represents event data returned by ATND API.
 type Atnd struct {
-	result struct {
+	Result struct {
 		Results_returned int
 		Results_start    int
 		Events           []struct {
@@ -28,7 +28,7 @@ type Atnd struct {
 	}
 }
 
-func (self *Atnd) Get(baseurl, keyword, nickname string) ([]Event, error) {
+func (self *Atnd) Get(baseurl, keyword, nickname string, places []string) ([]Event, error) {
 	var events []Event
 	for _, param := range []string{"keyword_or=" + url.QueryEscape(keyword), "owner_nickname=" + nickname, "nickname=" + nickname} {
 		for t := time.Now().Local(); t.Before(time.Now().Local().AddDate(0, 3, 0)); t = t.AddDate(0, 1, 0) {
@@ -37,10 +37,10 @@ func (self *Atnd) Get(baseurl, keyword, nickname string) ([]Event, error) {
 			if err != nil {
 				return nil, err
 			}
-			if err = mapstructure.WeakDecode(result, &self.result); err != nil {
+			if err = mapstructure.WeakDecode(result, &self.Result); err != nil {
 				return nil, err
 			}
-			for _, atnd := range self.result.Events {
+			for _, atnd := range self.Result.Events {
 				event := Event{
 					Id:          atnd.Event.Event_id,
 					Title:       atnd.Event.Title,
@@ -48,7 +48,10 @@ func (self *Atnd) Get(baseurl, keyword, nickname string) ([]Event, error) {
 					Url:         atnd.Event.Event_url,
 					Summary:     atnd.Event.Catch,
 					Place:       atnd.Event.Address + "\n" + atnd.Event.Place,
-					Description: atnd.Event.Description,
+					Description: parse(atnd.Event.Description),
+				}
+				if event.Summary == "" {
+					event.Summary = trim(event.Description)
 				}
 				events = append(events, event)
 			}

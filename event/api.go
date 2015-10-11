@@ -11,7 +11,7 @@ import (
 // Api is an interface to get a slice of Event
 type Api interface {
 	// Get gets a slice of Event using API depending on api providers.
-	Get(baseurl, keyword, nickname string) ([]Event, error)
+	Get(baseurl, keyword, nickname string, places []string) ([]Event, error)
 }
 
 // timeFormat holds time format.

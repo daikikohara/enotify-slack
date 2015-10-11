@@ -25,7 +25,7 @@ type Zusaar struct {
 	}
 }
 
-func (self *Zusaar) Get(baseurl, keyword, nickname string) ([]Event, error) {
+func (self *Zusaar) Get(baseurl, keyword, nickname string, places []string) ([]Event, error) {
 	var events []Event
 	for _, param := range []string{"keyword_or=" + url.QueryEscape(keyword), "owner_nickname=" + nickname, "nickname=" + nickname} {
 		for t := time.Now().Local(); t.Before(time.Now().Local().AddDate(0, 3, 0)); t = t.AddDate(0, 1, 0) {
@@ -45,7 +45,10 @@ func (self *Zusaar) Get(baseurl, keyword, nickname string) ([]Event, error) {
 					Url:         e.Event_url,
 					Summary:     e.Catch,
 					Place:       e.Address + "\n" + e.Place,
-					Description: e.Description,
+					Description: parse(e.Description),
+				}
+				if event.Summary == "" {
+					event.Summary = trim(event.Description)
 				}
 				events = append(events, event)
 			}

@@ -31,7 +31,7 @@ func TestGetPartake(t *testing.T) {
 	}))
 	defer tsSuccess.Close()
 	partake := new(Partake)
-	events, err := partake.Get(tsSuccess.URL+"?", keyword, nickname)
+	events, err := partake.Get(tsSuccess.URL+"?", keyword, nickname, place)
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -40,7 +40,7 @@ func TestGetPartake(t *testing.T) {
 	}
 
 	// invalid url
-	events, err = partake.Get("", keyword, nickname)
+	events, err = partake.Get("", keyword, nickname, place)
 	if err == nil {
 		t.Error(err.Error())
 	}

@@ -8,8 +8,8 @@ enotify-slack
 
 ## Summary
 
-This is a tool to get event information and send the information to a channel in [Slack](https://slack.com/).
-The event information is provided by event provider's site such as [Meetup](http://www.meetup.com/) and [Eventbrite](https://www.eventbrite.com/)(the others are mainly Japanese sites).
+This is a tool to get event(meetup) information and send the information to a channel in [Slack](https://slack.com/).
+The event information is provided by event provider's site such as [Meetup](http://www.meetup.com/) and [Eventbrite](https://www.eventbrite.com/)(the others are mainly only used in Japan).
 The event information will be sent to Slack if the title or description contains keyword specified in the configuration file.
 
 ![screenshot](https://raw.github.com/wiki/daikikohara/enotify-slack/images/capture01.png)
@@ -31,7 +31,7 @@ enotify-slack uses api shown below.
  * [Eventbrite](http://developer.eventbrite.com/docs/)
  * [Meetup](http://www.meetup.com/meetup_api/)
  * [Partake](https://github.com/partakein/partake/wiki/PARTAKE-Web-API)
- * [StreetAcademy](http://www.street-academy.com/api)
+ * [StreetAcademy](https://www.street-academy.com/api.html)
  * [Zusaar](http://www.zusaar.com/doc/api.html)
 * Slack
  * [Slack](https://api.slack.com/)

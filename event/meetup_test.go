@@ -19,7 +19,7 @@ func TestGetMeetup(t *testing.T) {
 	}))
 	defer tsSuccess.Close()
 	meetup := new(Meetup)
-	events, err := meetup.Get(tsSuccess.URL+"?", keyword, nickname)
+	events, err := meetup.Get(tsSuccess.URL+"?", keyword, nickname, place)
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -29,7 +29,7 @@ func TestGetMeetup(t *testing.T) {
 
 	// different timezone
 	SetTimezone("America/Los_Angeles")
-	events, err = meetup.Get(tsSuccess.URL+"?", keyword, nickname)
+	events, err = meetup.Get(tsSuccess.URL+"?", keyword, nickname, place)
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -44,7 +44,7 @@ func TestGetMeetup(t *testing.T) {
 	}
 
 	// invalid url
-	events, err = meetup.Get("", keyword, nickname)
+	events, err = meetup.Get("", keyword, nickname, place)
 	if err == nil {
 		t.Error(err.Error())
 	}

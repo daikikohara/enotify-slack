@@ -16,6 +16,8 @@ const (
 	nickname = "nickname1"
 )
 
+var place = []string{"San Jose", "東京", "渋谷"}
+
 var (
 	eventok = Event{
 		Id:          "123",
@@ -24,6 +26,15 @@ var (
 		Url:         "http://example.connpass.com/event/123/",
 		Started_at:  "2015-09-30 19:00",
 		Place:       "address123\nplace123",
+		Description: "summary123",
+	}
+	eventbriteok = Event{
+		Id:          "123",
+		Title:       "example#1",
+		Summary:     "summary123",
+		Url:         "http://example.connpass.com/event/123/",
+		Started_at:  "2015-09-30 19:00",
+		Place:       "San Jose",
 		Description: "summary123",
 	}
 	eventoklong = Event{

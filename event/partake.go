@@ -25,7 +25,7 @@ type Partake struct {
 	}
 }
 
-func (self *Partake) Get(baseurl, keyword, nickname string) ([]Event, error) {
+func (self *Partake) Get(baseurl, keyword, nickname string, places []string) ([]Event, error) {
 	var events []Event
 	for _, param := range strings.Split(keyword, ",") {
 		result, err := GetJson(baseurl + url.QueryEscape(param))

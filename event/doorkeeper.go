@@ -22,7 +22,7 @@ type Doorkeeper struct {
 	}
 }
 
-func (self *Doorkeeper) Get(baseurl, keyword, nickname string) ([]Event, error) {
+func (self *Doorkeeper) Get(baseurl, keyword, nickname string, places []string) ([]Event, error) {
 	t := time.Now().Format("2006-01-02")
 	param := "since=" + t
 	result, err := GetJson(baseurl + param)

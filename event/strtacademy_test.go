@@ -19,7 +19,7 @@ func TestGetStracademy(t *testing.T) {
 	}))
 	defer tsSuccess.Close()
 	strt := new(Strtacademy)
-	events, err := strt.Get(tsSuccess.URL+"?", "summary", nickname)
+	events, err := strt.Get(tsSuccess.URL+"?", "summary", nickname, place)
 	if err != nil {
 		t.Error(err.Error())
 	}
@@ -40,7 +40,7 @@ func TestGetStracademy(t *testing.T) {
 	}
 
 	// invalid url
-	events, err = strt.Get("", keyword, nickname)
+	events, err = strt.Get("", keyword, nickname, place)
 	if err == nil {
 		t.Error(err.Error())
 	}

@@ -19,21 +19,21 @@ func TestGetEventbrite(t *testing.T) {
 	}))
 	defer tsSuccess.Close()
 	eventbrite := new(Eventbrite)
-	events, err := eventbrite.Get(tsSuccess.URL+"?", keyword, nickname)
+	events, err := eventbrite.Get(tsSuccess.URL+"?", keyword, nickname, place)
 	if err != nil {
 		t.Error(err.Error())
 	}
-	if !reflect.DeepEqual(eventok, events[0]) {
+	if !reflect.DeepEqual(eventbriteok, events[0]) {
 		t.Error("eventbrite event is not ok!")
 	}
 
 	// different timezone
 	SetTimezone("America/Los_Angeles")
-	events, err = eventbrite.Get(tsSuccess.URL+"?", keyword, nickname)
+	events, err = eventbrite.Get(tsSuccess.URL+"?", keyword, nickname, place)
 	if err != nil {
 		t.Error(err.Error())
 	}
-	e := eventok
+	e := eventbriteok
 	e.Started_at = "2015-09-30 02:00"
 	if !reflect.DeepEqual(e, events[0]) {
 		// daylight saving
@@ -44,7 +44,7 @@ func TestGetEventbrite(t *testing.T) {
 	}
 
 	// invalid url
-	events, err = eventbrite.Get("", keyword, nickname)
+	events, err = eventbrite.Get("", keyword, nickname, place)
 	if err == nil {
 		t.Error(err.Error())
 	}
