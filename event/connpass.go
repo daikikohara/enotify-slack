@@ -45,7 +45,7 @@ func (self *Connpass) Get(baseurl, keyword, nickname string, places []string) ([
 					Url:         e.Event_url,
 					Summary:     e.Catch,
 					Place:       e.Address + "\n" + e.Place,
-					Description: e.Description,
+					Description: parse(e.Description),
 				}
 				if event.Summary == "" {
 					event.Summary = trim(event.Description)
