@@ -1,0 +1,8 @@
+enotify-slack
+enotify-slack.log
+enotify-slack.db
+.coverprofile
+event/.coverprofile
+gover.coverprofile
+Godeps/*
+!Godeps.json
