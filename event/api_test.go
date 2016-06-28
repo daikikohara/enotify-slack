@@ -63,7 +63,6 @@ var funcNameTable = []struct {
 }{
 	{"doorkeeper", "Doorkeeper"},
 	{"atnd", "Atnd"},
-	{"partake", "Partake"},
 	{"connpass", "Connpass"},
 	{"zusaar", "Zusaar"},
 	{"strtacademy", "Strtacademy"},

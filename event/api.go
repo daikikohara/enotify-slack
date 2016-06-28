@@ -37,8 +37,6 @@ func GetApi(provider string) Api {
 	switch provider {
 	case "doorkeeper":
 		return new(Doorkeeper)
-	case "partake":
-		return new(Partake)
 	case "atnd":
 		return new(Atnd)
 	case "connpass":

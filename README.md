@@ -30,7 +30,6 @@ enotify-slack uses api shown below.
  * [Doorkeeper](http://www.doorkeeperhq.com/developer/api)
  * [Eventbrite](http://developer.eventbrite.com/docs/)
  * [Meetup](http://www.meetup.com/meetup_api/)
- * [Partake](https://github.com/partakein/partake/wiki/PARTAKE-Web-API)
  * [StreetAcademy](https://www.street-academy.com/api.html)
  * [Zusaar](http://www.zusaar.com/doc/api.html)
 * Slack

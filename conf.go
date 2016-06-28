@@ -68,11 +68,6 @@ var defConf = Config{
 			Color:    "#F00000",
 			Interval: 3600,
 		},
-		"partake": {
-			Url:      "http://partake.in/api/event/search?sortOrder=createdAt&maxNum=50&query=",
-			Color:    "#AAAAAA",
-			Interval: 3600,
-		},
 		"strtacademy": {
 			Url:      "http://www.street-academy.com/api/v1/events?page=",
 			Color:    "#009900",
